@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auspicious Wedding Invitation | Sri Venkateswara Swamy & Ganesha Blessings</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for Indian Royal Wedding Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: {
+              800: '#580c1f',
+              900: '#3e0614',
+              950: '#22020a',
+            },
+            royalGold: {
+              200: '#fff3c4',
+              300: '#fae49d',
+              400: '#f5d061',
+              500: '#e5b842',
+              600: '#c59b27',
+              700: '#8e6d15',
+            },
+            cream: {
+              50: '#fffbf2',
+              100: '#fcf6e8',
+              200: '#f8eed2',
+            }
+          },
+          fontFamily: {
+            title: ['Cinzel Decorative', 'serif'],
+            script: ['Great Vibes', 'cursive'],
+            serif: ['Cormorant Garamond', 'serif'],
+            heading: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Royal Silk Wallpaper Texture */
+    .bg-silk-pattern {
+      background-color: #380410;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(229, 184, 66, 0.12) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(229, 184, 66, 0.04) 0, rgba(229, 184, 66, 0.04) 2px, transparent 2px, transparent 16px),
+        repeating-linear-gradient(-45deg, rgba(229, 184, 66, 0.02) 0, rgba(229, 184, 66, 0.02) 2px, transparent 2px, transparent 16px);
+    }
+    .card-gold-border {
+      border: 3px solid #e5b842;
+      box-shadow: 0 0 35px rgba(229, 184, 66, 0.3), inset 0 0 30px rgba(229, 184, 66, 0.15);
+    }
+    .inner-border {
+      border: 2px dashed rgba(229, 184, 66, 0.55);
+    }
+    .gold-shimmer-text {
+      background: linear-gradient(135deg, #fff3c4 0%, #fae49d 25%, #e5b842 50%, #c59b27 75%, #fae49d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-gradient-bg {
+      background: linear-gradient(135deg, #fae49d 0%, #e5b842 50%, #c59b27 100%);
+    }
+
+    /* Flower petals animation */
+    .petal {
+      position: fixed;
+      pointer-events: none;
+      z-index: 40;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg) scale(0.8);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Button Shimmer */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: rotate(30deg);
+      animation: btnShimmer 3.5s infinite;
+    }
+    @keyframes btnShimmer {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-thumb { background: #c59b27; border-radius: 8px; }
+    ::-webkit-scrollbar-track { background: #22020a; }
+  </style>
+</head>
+<body class="bg-maroon-950 text-cream-100 min-h-screen font-serif relative overflow-x-hidden selection:bg-royalGold-500 selection:text-maroon-950">
+
+  <!-- Background Audio Element -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src=Downloads>
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Petals Shower Layer -->
+  <div id="petalsContainer" class="pointer-events-none fixed inset-0 overflow-hidden z-20"></div>
+
+  <!-- CLEAN TOP BAR (Audio & Flowers Controls Only) -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-maroon-950/95 backdrop-blur-md border-b-2 border-royalGold-500/40 px-4 sm:px-8 py-2.5 flex items-center justify-between shadow-2xl">
+    
+    <div class="flex items-center gap-2 text-royalGold-300 font-sans text-xs sm:text-sm font-semibold">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+      </span>
+      <span>Srinivas & Kusuma Wedding</span>
+    </div>
+
+    <div class="flex items-center gap-2.5 font-sans">
+      <!-- Traditional Music Player Button -->
+      <button id="musicBtn" onclick="toggleMusic()" class="px-3 py-1 rounded-full text-xs border border-royalGold-500/60 bg-maroon-900/80 hover:bg-royalGold-500 hover:text-maroon-950 text-royalGold-300 transition-all flex items-center gap-1.5" title="Play Brahmotsavam Audio">
+        <i id="musicIcon" class="fa-solid fa-volume-high text-xs"></i>
+        <span id="musicLabel">Music: Muted</span>
+      </button>
+
+      <!-- Petal Shower Toggle -->
+      <button id="petalBtn" onclick="togglePetalsShower()" class="px-3 py-1 rounded-full text-xs border border-royalGold-500/60 bg-maroon-900/80 hover:bg-royalGold-500 hover:text-maroon-950 text-royalGold-300 transition-all flex items-center gap-1.5 bg-royalGold-500 text-maroon-950">
+        <i class="fa-solid fa-fan text-xs"></i>
+        <span class="hidden sm:inline">Flowers: On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="pt-20 pb-20 px-3 sm:px-6 md:px-12 max-w-5xl mx-auto">
+
+    <!-- Top Traditional Toranam / Mango Leaves Garland Motif -->
+    <div class="w-full flex justify-center py-3 mb-2 opacity-95">
+      <svg class="w-full max-w-2xl h-10 text-royalGold-400" viewBox="0 0 700 45" fill="currentColor">
+        <path d="M0,0 Q87,40 175,0 Q262,40 350,0 Q437,40 525,0 Q612,40 700,0 L700,8 Q612,48 525,8 Q437,48 350,8 Q262,48 175,8 Q87,48 0,8 Z" opacity="0.9"/>
+        <circle cx="87" cy="24" r="5" fill="#fae49d"/>
+        <polygon points="87,27 82,40 92,40" fill="#e5b842"/>
+        <circle cx="262" cy="24" r="5" fill="#fae49d"/>
+        <polygon points="262,27 257,40 267,40" fill="#e5b842"/>
+        <circle cx="437" cy="24" r="5" fill="#fae49d"/>
+        <polygon points="437,27 432,40 442,40" fill="#e5b842"/>
+        <circle cx="612" cy="24" r="5" fill="#fae49d"/>
+        <polygon points="612,27 607,40 617,40" fill="#e5b842"/>
+      </svg>
+    </div>
+
+    <!-- MAIN INVITATION CARD -->
+    <div id="invitationCard" class="bg-silk-pattern card-gold-border rounded-3xl p-4 sm:p-8 md:p-14 relative shadow-2xl transition-all">
+      
+      <!-- Inner Dashed Gold Border -->
+      <div class="inner-border rounded-2xl p-4 sm:p-8 md:p-12 relative">
+
+        <!-- 4 Ornate Golden Corner Mandalas -->
+        <svg class="absolute top-3 left-3 w-12 h-12 text-royalGold-400 opacity-80" viewBox="0 0 60 60" fill="currentColor">
+          <path d="M0 0 L60 0 L60 8 L8 8 L8 60 L0 60 Z"/>
+          <circle cx="20" cy="20" r="5"/>
+          <path d="M10 10 Q32 10 32 32 Q10 32 10 10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="absolute top-3 right-3 w-12 h-12 text-royalGold-400 opacity-80 rotate-90" viewBox="0 0 60 60" fill="currentColor">
+          <path d="M0 0 L60 0 L60 8 L8 8 L8 60 L0 60 Z"/>
+          <circle cx="20" cy="20" r="5"/>
+          <path d="M10 10 Q32 10 32 32 Q10 32 10 10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="absolute bottom-3 left-3 w-12 h-12 text-royalGold-400 opacity-80 -rotate-90" viewBox="0 0 60 60" fill="currentColor">
+          <path d="M0 0 L60 0 L60 8 L8 8 L8 60 L0 60 Z"/>
+          <circle cx="20" cy="20" r="5"/>
+          <path d="M10 10 Q32 10 32 32 Q10 32 10 10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="absolute bottom-3 right-3 w-12 h-12 text-royalGold-400 opacity-80 rotate-180" viewBox="0 0 60 60" fill="currentColor">
+          <path d="M0 0 L60 0 L60 8 L8 8 L8 60 L0 60 Z"/>
+          <circle cx="20" cy="20" r="5"/>
+          <path d="M10 10 Q32 10 32 32 Q10 32 10 10" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+
+        <!-- DEITIES SECTION -->
+        <section class="text-center space-y-4 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch justify-center max-w-4xl mx-auto">
+            
+            <!-- 1. LORD VINAYAKA -->
+            <div class="flex flex-col items-center bg-maroon-900/60 border border-royalGold-500/40 rounded-2xl p-5 shadow-xl backdrop-blur-sm group hover:border-royalGold-400 transition-all">
+              <div class="relative w-32 h-32 mb-3 rounded-full p-1 bg-gradient-to-tr from-royalGold-600 via-royalGold-300 to-royalGold-700 shadow-md flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 100" class="w-full h-full bg-maroon-950 rounded-full p-2 text-royalGold-400 group-hover:scale-105 transition-transform duration-500" fill="currentColor">
+                  <path d="M38 18 L50 6 L62 18 L56 22 L44 22 Z" fill="#f5d061"/>
+                  <circle cx="50" cy="11" r="2" fill="#fff"/>
+                  <path d="M47 24 H53 V34 H47 Z" fill="#e5b842"/>
+                  <circle cx="50" cy="27" r="1.5" fill="#c026d3"/>
+                  <path d="M35 28 C35 22 65 22 65 28 C65 36 60 40 58 46 C56 52 56 60 58 64 C60 67 63 68 64 65 C65 62 64 57 67 56 C69 55 70 58 69 63 C67 71 61 74 54 73 C46 72 44 65 44 56 C44 48 48 43 48 38 C48 34 45 32 40 33 C37 34 35 32 35 28 Z" fill="#fae49d"/>
+                  <path d="M36 28 C26 28 22 36 24 46 C26 53 33 52 35 47" fill="none" stroke="#e5b842" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M64 28 C74 28 78 36 76 46 C74 53 67 52 65 47" fill="none" stroke="#e5b842" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="43" y1="44" x2="40" y2="48" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="57" y1="44" x2="60" y2="50" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="68" cy="62" r="3.5" fill="#f59e0b"/>
+                  <circle cx="50" cy="50" r="46" fill="none" stroke="#e5b842" stroke-width="1.2" stroke-dasharray="2 3"/>
+                </svg>
+              </div>
+              <h3 class="font-title text-base sm:text-lg text-royalGold-300 tracking-wider">
+                || శ్రీ విఘ్నేశ్వరాయ నమః ||
+              </h3>
+              <p class="text-xs sm:text-sm text-cream-200/95 italic font-serif mt-1 leading-relaxed">
+                "వక్రతుండ మహాకాయ సూర్యకోటి సమప్రభ<br>నిర్విఘ్నం కురు మే దేవ సర్వకార్యేషు సర్వదా"
+              </p>
+              <span class="text-[11px] text-royalGold-400 font-sans mt-2 tracking-widest uppercase">Lord Sri Vighneswara Swamy</span>
+            </div>
+
+            <!-- 2. LORD VENKATESWARA SWAMY -->
+            <div class="flex flex-col items-center bg-maroon-900/60 border border-royalGold-500/40 rounded-2xl p-5 shadow-xl backdrop-blur-sm group hover:border-royalGold-400 transition-all">
+              <div class="relative w-32 h-32 mb-3 rounded-full p-1 bg-gradient-to-tr from-royalGold-600 via-royalGold-300 to-royalGold-700 shadow-md flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 100" class="w-full h-full bg-maroon-950 rounded-full p-2 text-royalGold-400 group-hover:scale-105 transition-transform duration-500" fill="currentColor">
+                  <path d="M35 30 L40 5 L60 5 L65 30 Z" fill="#f5d061"/>
+                  <path d="M43 5 L50 1 L57 5" stroke="#fff" stroke-width="1.5" fill="none"/>
+                  <circle cx="24" cy="27" r="6" fill="#f5d061" stroke="#fff" stroke-width="1"/>
+                  <circle cx="24" cy="27" r="2" fill="#3e0614"/>
+                  <ellipse cx="76" cy="27" rx="5" ry="7" fill="#f5d061" stroke="#fff" stroke-width="1"/>
+                  <path d="M37 30 C37 49 63 49 63 30" fill="#fae49d"/>
+                  <path d="M44 19 L44 38 L48 38 L48 19 Z" fill="#ffffff"/>
+                  <path d="M52 19 L52 38 L56 38 L56 19 Z" fill="#ffffff"/>
+                  <path d="M46 38 L54 38 L50 42 Z" fill="#ffffff"/>
+                  <line x1="50" y1="22" x2="50" y2="36" stroke="#dc2626" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M42 43 Q50 47 58 43" stroke="#8e6d15" stroke-width="1.5" fill="none"/>
+                  <path d="M30 52 Q50 70 70 52" stroke="#f5d061" stroke-width="3" fill="none"/>
+                  <path d="M26 60 Q50 84 74 60" stroke="#e5b842" stroke-width="3.5" fill="none"/>
+                  <path d="M22 68 Q50 98 78 68" stroke="#c59b27" stroke-width="3.2" fill="none"/>
+                  <circle cx="50" cy="50" r="46" fill="none" stroke="#e5b842" stroke-width="1.2" stroke-dasharray="2 3"/>
+                </svg>
+              </div>
+              <h3 class="font-title text-base sm:text-lg text-royalGold-300 tracking-wider">
+                || ఓం నమో వేంకటేశాయ ||
+              </h3>
+              <p class="text-xs sm:text-sm text-cream-200/95 italic font-serif mt-1 leading-relaxed">
+                "కల్యాణాద్భుత గాత్రాయ కామితార్థ ప్రదాయినే<br>శ్రీమద్ వేంకటనాథాయ శ్రీనివాసాయ తే నమః"
+              </p>
+              <span class="text-[11px] text-royalGold-400 font-sans mt-2 tracking-widest uppercase">Lord Sri Venkateswara Swamy</span>
+            </div>
+
+          </div>
+
+          <!-- Auspicious Symbols Ribbon -->
+          <div class="flex items-center justify-center gap-3 pt-3">
+            <span class="h-px w-16 sm:w-32 bg-gradient-to-r from-transparent to-royalGold-400"></span>
+            <span class="text-royalGold-400 text-xl tracking-widest">卐 &nbsp; ॐ &nbsp; 卐</span>
+            <span class="h-px w-16 sm:w-32 bg-gradient-to-l from-transparent to-royalGold-400"></span>
+          </div>
+
+          <!-- Invitation Subtitle & Welcoming Lines -->
+          <h4 class="text-base sm:text-xl font-heading font-semibold text-royalGold-300 tracking-wider uppercase pt-2">
+            With the Divine Blessings of Lord Venkateswara & Vighneswara Swamy
+          </h4>
+          <p class="text-sm sm:text-base text-cream-200 max-w-2xl mx-auto leading-relaxed">
+            Together with our families, we solicit your gracious presence and heartfelt blessings on the auspicious ceremony of our wedding.
+          </p>
+        </section>
+
+        <!-- BRIDE & GROOM SPOTLIGHT SECTION -->
+        <section class="my-10 text-center">
+          <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
+            
+            <!-- GROOM BOX -->
+            <div class="flex-1 bg-maroon-900/50 p-6 rounded-2xl border-2 border-royalGold-500/40 w-full max-w-md shadow-xl hover:border-royalGold-400 transition-all">
+              <span class="text-xs font-sans tracking-widest text-royalGold-400 uppercase font-bold block mb-1">
+                Chiranjeevi
+              </span>
+              <h2 class="font-heading text-3xl sm:text-4xl text-royalGold-200 font-bold tracking-wide">
+                Srinivas
+              </h2>
+              <p class="text-xs sm:text-sm text-cream-200 font-sans mt-1.5 opacity-90">
+              </p>
+              
+              <div class="mt-4 pt-4 border-t border-royalGold-500/30 text-xs sm:text-sm text-cream-200/90 space-y-1">
+                <span class="text-royalGold-400 block font-semibold text-xs tracking-wider uppercase">Son of:</span>
+                <p class="font-serif text-base text-cream-100">
+                  Sri Stayanarayana & Smt. Venkata Lakshmi Kumari
+                </p>
+                <p class="text-xs text-royalGold-300/80 font-sans">
+                  Velivennu, Andhra Pradesh
+                </p>
+              </div>
+            </div>
+
+            <!-- WEDDING UNION SYMBOL -->
+            <div class="flex flex-col items-center justify-center py-2">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-royalGold-300 via-royalGold-500 to-royalGold-700 flex items-center justify-center text-maroon-950 font-script text-4xl font-bold shadow-2xl ring-4 ring-maroon-900">
+                &
+              </div>
+              <span class="text-xs font-sans tracking-widest uppercase text-royalGold-300 font-bold mt-2">Weds</span>
+            </div>
+
+            <!-- BRIDE BOX -->
+            <div class="flex-1 bg-maroon-900/50 p-6 rounded-2xl border-2 border-royalGold-500/40 w-full max-w-md shadow-xl hover:border-royalGold-400 transition-all">
+              <span class="text-xs font-sans tracking-widest text-royalGold-400 uppercase font-bold block mb-1">
+                Chi. La. Sow.
+              </span>
+              <h2 class="font-heading text-3xl sm:text-4xl text-royalGold-200 font-bold tracking-wide">
+                Kusuma
+              </h2>
+              <p class="text-xs sm:text-sm text-cream-200 font-sans mt-1.5 opacity-90">
+              </p>
+              
+              <div class="mt-4 pt-4 border-t border-royalGold-500/30 text-xs sm:text-sm text-cream-200/90 space-y-1">
+                <span class="text-royalGold-400 block font-semibold text-xs tracking-wider uppercase">Daughter of:</span>
+                <p class="font-serif text-base text-cream-100">
+                  Sri Venkateswara Rao & Smt. Sujatha
+                </p>
+                <p class="text-xs text-royalGold-300/80 font-sans">
+                  Usulumarru, West Godavari
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- AUSPICIOUS MUHURTHAM BANNER -->
+        <section class="my-10 max-w-2xl mx-auto bg-gradient-to-r from-maroon-900 via-maroon-800 to-maroon-900 p-6 sm:p-8 rounded-3xl border-2 border-royalGold-500 shadow-2xl text-center relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 text-royalGold-500/10 text-9xl font-serif pointer-events-none select-none">卐</div>
+          <div class="absolute -left-6 -top-6 text-royalGold-500/10 text-9xl font-serif pointer-events-none select-none">ॐ</div>
+
+          <div class="inline-block px-4 py-1 rounded-full bg-royalGold-500/20 border border-royalGold-400/50 text-royalGold-300 text-xs tracking-widest uppercase font-sans font-bold mb-3">
+            ✨ Sumuhurtham / శుభ ముహూర్తం ✨
+          </div>
+
+          <h3 class="text-2xl sm:text-4xl font-heading font-bold text-royalGold-200 mb-2">
+            Saturday, 21st November 2026
+          </h3>
+          
+          <p class="text-2xl sm:text-3xl text-cream-100 font-serif">
+            Muhurtham at <span class="text-royalGold-400 font-bold">9:51 PM</span>
+          </p>
+
+          <p class="text-xs sm:text-sm text-royalGold-300/90 font-serif italic mt-3">
+            (Dhanur Lagnam Pushkaramsha - Hastapachara Sumuhurtham)
+          </p>
+        </section>
+
+        <!-- LIVE COUNTDOWN TIMER -->
+        <section class="my-10 text-center">
+          <h4 class="text-xs sm:text-sm font-sans tracking-widest text-royalGold-400 uppercase mb-4 flex items-center justify-center gap-2">
+            <i class="fa-regular fa-clock"></i> Counting Down to the Holy Union
+          </h4>
+
+          <div class="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-lg mx-auto">
+            <div class="bg-maroon-950/85 border border-royalGold-500/50 rounded-2xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
+              <span id="timerDays" class="block font-heading text-2xl sm:text-4xl font-bold text-royalGold-300">00</span>
+              <span class="text-[10px] sm:text-xs font-sans text-cream-200/80 uppercase tracking-wider">Days</span>
+            </div>
+            <div class="bg-maroon-950/85 border border-royalGold-500/50 rounded-2xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
+              <span id="timerHours" class="block font-heading text-2xl sm:text-4xl font-bold text-royalGold-300">00</span>
+              <span class="text-[10px] sm:text-xs font-sans text-cream-200/80 uppercase tracking-wider">Hours</span>
+            </div>
+            <div class="bg-maroon-950/85 border border-royalGold-500/50 rounded-2xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
+              <span id="timerMinutes" class="block font-heading text-2xl sm:text-4xl font-bold text-royalGold-300">00</span>
+              <span class="text-[10px] sm:text-xs font-sans text-cream-200/80 uppercase tracking-wider">Mins</span>
+            </div>
+            <div class="bg-maroon-950/85 border border-royalGold-500/50 rounded-2xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
+              <span id="timerSeconds" class="block font-heading text-2xl sm:text-4xl font-bold text-royalGold-400 animate-pulse">00</span>
+              <span class="text-[10px] sm:text-xs font-sans text-cream-200/80 uppercase tracking-wider">Secs</span>
+            </div>
+          </div>
+          <p id="countdownMessage" class="text-xs text-royalGold-300/80 mt-3 font-sans"></p>
+        </section>
+
+        <!-- PROGRAM ITINERARY & CEREMONIES -->
+        <section class="my-10">
+          <div class="text-center mb-6">
+            <span class="text-xs font-sans tracking-widest text-royalGold-400 uppercase font-bold">Sacred Timeline</span>
+            <h3 class="text-2xl sm:text-3xl font-heading font-bold text-royalGold-200">Wedding Celebrations</h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div class="bg-maroon-900/40 border border-royalGold-500/30 rounded-2xl p-5 text-center shadow-lg">
+              <div class="w-10 h-10 mx-auto rounded-full bg-royalGold-500/20 text-royalGold-300 flex items-center justify-center mb-3">
+                <i class="fa-solid fa-hand-sparkles"></i>
+              </div>
+              <h4 class="font-heading text-lg font-bold text-royalGold-300">Haldi & Mehendi</h4>
+              <p class="text-xs font-sans text-royalGold-400 font-semibold mt-1">20th November 2026, 10:00 AM</p>
+              <p class="text-xs text-cream-200/80 mt-2 font-serif">At Groom's & Bride's Respective Residences</p>
+            </div>
+
+            <div class="bg-maroon-900/70 border-2 border-royalGold-400 rounded-2xl p-5 text-center shadow-2xl relative">
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-royalGold-500 text-maroon-950 text-[10px] font-sans font-bold uppercase tracking-wider">
+                Main Ritual
+              </span>
+              <div class="w-10 h-10 mx-auto rounded-full bg-royalGold-500 text-maroon-950 flex items-center justify-center mb-3 text-lg font-bold">
+                <i class="fa-solid fa-ring"></i>
+              </div>
+              <h4 class="font-heading text-lg font-bold text-royalGold-200">Kalyana Mahotsavam</h4>
+              <p class="text-xs font-sans text-royalGold-400 font-semibold mt-1">21st November 2026, 9:51 PM</p>
+              <p class="text-xs text-cream-200 mt-2 font-serif">Velivennu Raithu Sanga Kalyana Mandapam</p>
+            </div>
+
+            <div class="bg-maroon-900/40 border border-royalGold-500/30 rounded-2xl p-5 text-center shadow-lg">
+              <div class="w-10 h-10 mx-auto rounded-full bg-royalGold-500/20 text-royalGold-300 flex items-center justify-center mb-3">
+                <i class="fa-solid fa-champagne-glasses"></i>
+              </div>
+              <h4 class="font-heading text-lg font-bold text-royalGold-300">Reception Dinner</h4>
+              <p class="text-xs font-sans text-royalGold-400 font-semibold mt-1">21st November 2026, 6:00 PM</p>
+              <p class="text-xs text-cream-200/80 mt-2 font-serif">Velivennu Raithu Sanga Kalyana Mandapam</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- VENUE & NAVIGATION SECTION -->
+        <section class="my-10 text-center max-w-2xl mx-auto bg-maroon-900/50 border border-royalGold-500/40 rounded-3xl p-6 sm:p-8 shadow-xl">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-royalGold-500/20 border border-royalGold-400 flex items-center justify-center text-royalGold-300 text-xl">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          
+          <span class="text-xs font-sans tracking-widest text-royalGold-400 uppercase font-semibold">Kalyana Vedika / Venue</span>
+          <h3 class="text-xl sm:text-2xl font-heading font-bold text-royalGold-200 mt-1">
+            Velivennu Raithu Sanga Kalyana Mandapam
+          </h3>
+          <p class="text-sm sm:text-base text-cream-200 font-serif mt-2 leading-relaxed">
+            Velivennu Village, East Godavari District, Andhra Pradesh.
+          </p>
+
+          <div class="mt-6 flex flex-wrap items-center justify-center gap-3 font-sans">
+            <!-- Google Maps link using exact coordinates 16.84914702599071, 81.69251853401245 -->
+            <a href="https://www.google.com/maps/search/?api=1&query=16.84914702599071,81.69251853401245" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-royalGold-500 text-maroon-950 font-bold hover:bg-royalGold-400 transition-all flex items-center gap-2 text-xs sm:text-sm shadow-md">
+              <i class="fa-solid fa-location-arrow"></i>
+              <span>Open in Google Maps</span>
+            </a>
+            
+            <button onclick="addToGoogleCalendar()" class="px-4 py-2.5 rounded-xl border border-royalGold-400/80 bg-maroon-950/70 hover:bg-maroon-900 text-royalGold-300 font-semibold transition-all flex items-center gap-2 text-xs sm:text-sm shadow-sm">
+              <i class="fa-regular fa-calendar-check"></i>
+              <span>Add to Calendar</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CONTACT & RSVP SECTION -->
+        <section class="my-10 text-center max-w-2xl mx-auto border-t border-royalGold-500/30 pt-8">
+          <h4 class="text-xs sm:text-sm font-sans tracking-widest text-royalGold-400 uppercase font-bold mb-2">
+            R.S.V.P & Best Compliments From
+          </h4>
+          <p class="text-sm text-cream-200 font-serif italic mb-6">
+            Near & Dear, Friends, Family Members & Well-Wishers
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-sans">
+            <a href="tel:9908006377" class="px-5 py-3 rounded-2xl bg-maroon-900 border border-royalGold-500/60 hover:border-royalGold-400 text-cream-100 flex items-center gap-3 transition-all hover:scale-105 shadow-md">
+              <div class="w-9 h-9 rounded-full bg-royalGold-500 text-maroon-950 flex items-center justify-center text-sm font-bold">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="text-left">
+                <span class="block text-[11px] text-royalGold-400 uppercase tracking-wider font-semibold">Call / RSVP</span>
+                <span class="font-bold text-sm sm:text-base">9908006377</span>
+              </div>
+            </a>
+
+            <a href="tel:9618587098" class="px-5 py-3 rounded-2xl bg-maroon-900 border border-royalGold-500/60 hover:border-royalGold-400 text-cream-100 flex items-center gap-3 transition-all hover:scale-105 shadow-md">
+              <div class="w-9 h-9 rounded-full bg-royalGold-500 text-maroon-950 flex items-center justify-center text-sm font-bold">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="text-left">
+                <span class="block text-[11px] text-royalGold-400 uppercase tracking-wider font-semibold">Call / RSVP</span>
+                <span class="font-bold text-sm sm:text-base">9618587098</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="mt-8 flex justify-center">
+            <button onclick="shareViaWhatsApp()" class="btn-shimmer px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-bold text-xs sm:text-sm flex items-center gap-2.5 shadow-xl transition-all hover:scale-105">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+              <span>Share Wedding Invitation via WhatsApp</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Traditional Blessings Footer -->
+        <footer class="text-center pt-6 border-t border-royalGold-500/20 text-xs sm:text-sm text-royalGold-300 font-serif space-y-1">
+          <p class="font-semibold text-sm">సర్వేజనాః సుఖినోభవంతు | సమస్త సన్మంగళాని భవంతు</p>
+          <p class="text-xs font-sans text-cream-200/70">
+            Please treat this web invitation as our personal invitation and grace the occasion with your auspicious presence.
+          </p>
+        </footer>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-royalGold-500 text-maroon-950 font-sans font-bold px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-32 opacity-0 transition-all duration-300">
+    <i class="fa-solid fa-circle-check text-lg"></i>
+    <span id="toastMsg">Ready!</span>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Countdown Timer Engine for November 21, 2026 at 21:51
+    function startCountdown() {
+      function tick() {
+        const target = new Date(2026, 10, 21, 21, 51, 0).getTime();
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        const dSpan = document.getElementById('timerDays');
+        const hSpan = document.getElementById('timerHours');
+        const mSpan = document.getElementById('timerMinutes');
+        const sSpan = document.getElementById('timerSeconds');
+        const msg = document.getElementById('countdownMessage');
+
+        if (diff <= 0) {
+          dSpan.textContent = "00";
+          hSpan.textContent = "00";
+          mSpan.textContent = "00";
+          sSpan.textContent = "00";
+          msg.textContent = "🌸 The Sacred Muhurtham has arrived! Mangalam Bhavantu! 🌸";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        dSpan.textContent = String(days).padStart(2, '0');
+        hSpan.textContent = String(hrs).padStart(2, '0');
+        mSpan.textContent = String(mins).padStart(2, '0');
+        sSpan.textContent = String(secs).padStart(2, '0');
+        msg.textContent = "Auspicious wedding day awaits your presence and blessings";
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    function addToGoogleCalendar() {
+      const title = encodeURIComponent("Kusuma & Srinivas Auspicious Wedding");
+      const details = encodeURIComponent("We cordially invite you to our wedding ceremony.\nVenue: Velivennu Raithu Sanga Kalyana Mandapam, Andhra Pradesh\nRSVP: 9908006377, 9618587098");
+      const location = encodeURIComponent("Velivennu Raithu Sanga Kalyana Mandapam, Andhra Pradesh");
+
+      const startIso = "20261121T215100";
+      const endIso = "20261122T005100";
+
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startIso}/${endIso}&details=${details}&location=${location}`;
+      window.open(url, '_blank');
+    }
+
+    function shareViaWhatsApp() {
+      const text = `🙏 *Auspicious Wedding Invitation* 🙏\n\nWith the divine blessings of *Lord Sri Venkateswara Swamy* and *Lord Sri Vighneswara Swamy*, we cordially invite you to our wedding ceremony:\n\n🤵 *Chiranjeevi Srinivas*\n👰 *Chi. La. Sow. Kusuma*\n\n📅 *Date:* 21-11-2026\n⏰ *Sumuhurtham:* 9:51 PM\n📍 *Venue:* Velivennu Raithu Sanga Kalyana Mandapam\n\n📞 *RSVP / Contact:* 9908006377, 9618587098\n\nPlease grace the auspicious occasion with your family and shower your blessings on us!`;
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    let petalsActive = true;
+    function dropPetal() {
+      if (!petalsActive) return;
+      const container = document.getElementById('petalsContainer');
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+
+      const isMarigold = Math.random() > 0.4;
+      const size = Math.floor(Math.random() * 12) + 12;
+
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 1.3}px`;
+      petal.style.left = `${Math.random() * 100}vw`;
+      petal.style.top = `-25px`;
+      petal.style.borderRadius = '50% 0 50% 50%';
+      petal.style.backgroundColor = isMarigold ? (Math.random() > 0.5 ? '#f59e0b' : '#e5b842') : '#fffbf2';
+      petal.style.boxShadow = '0 2px 5px rgba(0,0,0,0.25)';
+      petal.style.animationDuration = `${Math.random() * 4 + 4}s`;
+
+      container.appendChild(petal);
+      setTimeout(() => petal.remove(), 8000);
+    }
+
+    function togglePetalsShower() {
+      petalsActive = !petalsActive;
+      const btn = document.getElementById('petalBtn');
+      if (petalsActive) {
+        btn.classList.add('bg-royalGold-500', 'text-maroon-950');
+        btn.querySelector('span').textContent = "Flowers: On";
+        showToast("Flower shower active");
+      } else {
+        btn.classList.remove('bg-royalGold-500', 'text-maroon-950');
+        btn.querySelector('span').textContent = "Flowers: Off";
+        document.getElementById('petalsContainer').innerHTML = '';
+        showToast("Flower shower paused");
+      }
+    }
+
+    // Audio Controller
+    const audioEl = document.getElementById('bgAudio');
+    let isMusicPlaying = false;
+
+    function toggleMusic() {
+      if (!isMusicPlaying) {
+        audioEl.play().then(() => {
+          isMusicPlaying = true;
+          updateMusicBtn(true);
+          showToast("Playing devotional music 🎶");
+        }).catch(err => {
+          console.error("Audio playback blocked:", err);
+          showToast("Click anywhere on page first, then click Music");
+        });
+      } else {
+        audioEl.pause();
+        isMusicPlaying = false;
+        updateMusicBtn(false);
+        showToast("Music paused");
+      }
+    }
+
+    function updateMusicBtn(active) {
+      const btn = document.getElementById('musicBtn');
+      const icon = document.getElementById('musicIcon');
+      const label = document.getElementById('musicLabel');
+      if (active) {
+        btn.classList.add('bg-royalGold-500', 'text-maroon-950');
+        icon.className = 'fa-solid fa-volume-high text-xs';
+        label.textContent = "Music: Playing";
+      } else {
+        btn.classList.remove('bg-royalGold-500', 'text-maroon-950');
+        icon.className = 'fa-solid fa-volume-xmark text-xs';
+        label.textContent = "Music: Muted";
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = message;
+      toast.classList.remove('translate-y-32', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-32', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    window.onload = function() {
+      startCountdown();
+      setInterval(dropPetal, 350);
+    };
+  </script>
+</body>
+</html>
